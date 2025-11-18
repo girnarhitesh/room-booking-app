@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';  
 import './Navigation.css';
 
 function Navigation() {
@@ -9,29 +10,25 @@ function Navigation() {
     <header className="navbar">
       <div className="nav-container">
 
-        <a href="/" className="brand">
-        
-          <img src="/logo.img/img1.png" className="brand-logo" alt="Asatha Logo" />
+        <Link to="/" className="brand">
+          <img src="public/logo.img/img1.png" className="brand-logo" alt="Asatha Logo" />
           <div className="brand-text">
-             {/* <span className="brand-name">Asatha</span> */}
-             {/* <span className="brand-subtitle">VILLA AND RESORT</span> */}
+            {/* Logo Text (optional) */}
           </div>
-        </a>
+        </Link>
 
         <div className="nav-actions">
-    
-          <a href="#check-availability" className="btn btn-availability desktop-only">
-            Check Availability
-          </a>
 
-          
+          <Link to="/check-availability" className="btn btn-availability desktop-only">
+            Check Availability
+          </Link>
+
           <button
             className="btn btn-menu-toggle"
             aria-label="Toggle menu"
             onClick={() => setOpen(!open)}
           >
             MENU
-            
             <span className="menu-icon-bars">
               <span className="menu-icon-bar"></span>
               <span className="menu-icon-bar"></span>
@@ -39,19 +36,19 @@ function Navigation() {
             </span>
           </button>
         </div>
-        
 
         <nav className={`nav-menu-dropdown ${open ? 'open' : ''}`}>
 
-           <a href="#home">Home</a>
-           <a href="#rooms">Rooms</a>
-           <a href="#amenities">Amenities</a>
-           <a href="#pricing">Pricing</a>
-           <a href="#contact">Contact</a>
-        
-           <a href="#check-availability" className="btn btn-availability mobile-only-in-menu">
-             Check Availability
-           </a>
+          <Link to="/">Home</Link>
+          <Link to="/rooms">Rooms</Link>
+          <Link to="/amenities">Amenities</Link>
+          <Link to="/pricing">Pricing</Link>
+          <Link to="/contact">Contact</Link>
+
+          <Link to="/check-availability" className="btn btn-availability mobile-only-in-menu">
+            Check Availability
+          </Link>
+
         </nav>
       </div>
     </header>
