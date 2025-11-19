@@ -12,3 +12,8 @@ h6 {
     font-size: 3rem;
     letter-spacing: 1px;
 }
+
+.ant-col-lg-12{
+    flex: none !important;
+    max-width: none !importantm;
+}
