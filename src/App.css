@@ -13,7 +13,23 @@ h6 {
     letter-spacing: 1px;
 }
 
-.ant-col-lg-12{
+.ant-col-lg-12 {
     flex: none !important;
-    max-width: none !importantm;
+    /* max-width: none !important; */
 }
+
+
+
+@media (max-width:900px) {
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        width: 100% !important;
+        font-size: 24px;
+    }
+}
+
