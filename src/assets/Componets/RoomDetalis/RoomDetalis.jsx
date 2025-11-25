@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import RoomSectionData from "../RoomesSection/RoomsectionData";
 import "./RoomDetails.css";
 import { Row, Col } from "antd";
-import { HiOutlineArrowNarrowRight } from "react-icons/hi";
+
 
 function RoomDetails() {
 
@@ -48,7 +48,7 @@ function RoomDetails() {
 
                                     <p className="description">{room.description}</p>
 
-                                    <button className="details-btn">Confirm Booking<HiOutlineArrowNarrowRight className="btn-icon" /></button>
+                                    <button className="details-btn">Confirm Booking</button>
 
                                 </div>
                             </Col>

@@ -60,6 +60,7 @@
     cursor: pointer;
     transition: 0.3s;
     letter-spacing: 1px;
+    width: 30vhm;
 }
 
 .Backgroundcolor-section {
