@@ -55,11 +55,23 @@
     border: none;
     margin-top: 20px;
     padding: 14px 30px;
-    font-size: 18px;
+    font-size: 16px;
     /* border-radius: 10px; */
     cursor: pointer;
     transition: 0.3s;
+    letter-spacing: 1px;
 }
+
+.Backgroundcolor-section {
+    background-image: url('/img.png/background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;      /* full page cover karega */
+    background-position: center; /* center me focus */
+    width: 100%;
+    min-height: 100vh;           /* full screen height */
+    padding: 40px 0;             /* thoda spacing */
+}
+
 
 
 
