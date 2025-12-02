@@ -8,3 +8,9 @@
 .Sectionpadding {
   padding: 5rem 4rem;
 }
+
+@media (max-width: 768px) {
+  .Sectionpadding {
+    padding: 3rem 2rem;
+  }
+}

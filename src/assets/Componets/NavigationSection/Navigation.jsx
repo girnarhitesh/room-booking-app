@@ -41,7 +41,7 @@ function Navigation() {
 
           <Link to="/">Home</Link>
           <Link to="/rooms">Rooms</Link>
-          <Link to="/amenities">Amenities</Link>
+          {/* <Link to="/amenities">Amenities</Link> */}
           <Link to="/pricing">Pricing</Link>
           <Link to="/contact">Contact</Link>
 

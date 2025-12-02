@@ -5,6 +5,7 @@ import Hero from './assets/Componets/Herosection/Hero.jsx'
 import './App.css'
 import RoomSection from './assets/Componets/RoomesSection/RoomSection.jsx'
 import RoomDetails from './assets/Componets/RoomDetalis/RoomDetalis.jsx'
+import Contactpage from './assets/Componets/Contactpage/Contactpage.jsx'
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
           <Route path="/" element={<Hero />} />
           <Route path="/Rooms" element={<RoomSection />} />
           <Route path="/room/:id" element={<RoomDetails />} />
+          <Route path='/contact' element={<Contactpage />} />
         </Routes>
       </BrowserRouter>
     </>

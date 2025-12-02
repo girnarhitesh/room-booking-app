@@ -11,8 +11,8 @@ function About() {
                 <Col lg={12} md={16} sm={22} xs={24}>
                     <div className='About-section-content'>
                         <img src="/img.png/Aboutimg.png" alt="" />
-                        <h1 className='m' style={{color:"#1F2937"}}>
-                            crafted with care, <span style={{fontStyle:"italic", color:'#8a5a2e'  }}>made for you</span>
+                        <h1 className='About-section-heading' style={{color:"#1F2937"}}>
+                            crafted with care, <span style={{fontStyle:"italic", color:'#8a5a2e'}}>made for you</span>
                         </h1>
                         <p className='about-para'>
                             Our space is built with one purpose: to create a peaceful escape where comfort meets elegance. 

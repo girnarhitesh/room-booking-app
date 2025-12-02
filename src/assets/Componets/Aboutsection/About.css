@@ -12,6 +12,7 @@
 .About-section-content {
     text-align: center;
     margin: 0 auto;
+    
 }
 
 .about-para {
@@ -28,6 +29,9 @@
     width: 30vh;
 }
 
+/* .About-section-heading h1{
+    width: 50vw;
+} */
 
 /* Responsive */
 @media (max-width: 768px) {
