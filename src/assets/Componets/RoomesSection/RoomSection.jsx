@@ -9,6 +9,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { Pagination, Autoplay } from 'swiper/modules';
 import { HiOutlineArrowNarrowRight, HiOutlineArrowNarrowLeft } from "react-icons/hi";
+import Vacationsection from '../Contactpage/Vacationsection/Vacationsection';
 
 function RoomSection() {
 
@@ -17,9 +18,7 @@ function RoomSection() {
     return (
         <>
             <div className="Sectionpadding">
-
                 <div className="rooms-header">
-
                     <div className="rooms-header-left">
                         <h1 style={{ fontSize: "1.7rem", color: "#8A5A2E", fontFamily: "Lora", marginTop: "4rem" }}>
                             • Our Rooms
@@ -87,6 +86,7 @@ function RoomSection() {
 
                 </Swiper>
             </div>
+            <Vacationsection/>
         </>
     );
 }

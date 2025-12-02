@@ -1,0 +1,85 @@
+.Sectionpadding {
+    padding: 80px 0;
+    /* Top aur bottom padding */
+    background-color: #f8f8f8;
+    /* Halka background color */
+}
+
+.VacationsectionContainer {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    /* Horizontal padding chote screens ke liye */
+}
+
+
+.vacation-title-row {
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.vacation-heading {
+    font-family: 'Inter', sans-serif;
+    font-size: 2.5rem;
+    /* Bada font size */
+    font-weight: 800;
+    /* Extra bold */
+    color: #1f2937;
+    /* Gehra text color */
+    line-height: 1.2;
+    margin: 0 auto 10px;
+    max-width: 600px;
+    /* Heading ki width ko seemit karna */
+}
+
+
+
+.vacation-cards-row {
+    margin-top: 20px;
+}
+
+.vacationsection-card {
+    /* background: #ffffff; */
+    border-radius: 12px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+    padding: 20px;
+    overflow: hidden;
+    height: 100%;
+    /* Important for equal height cards in a row */
+    text-align: center;
+}
+
+
+
+/* .card-image-wrapper {
+    width: 100%;
+    height: 250px; 
+    overflow: hidden;
+    margin-bottom: 20px;
+} */
+
+.card-image {
+    width: 50px;
+    height: 100%;
+    object-fit: cover;
+
+}
+
+
+.vacationsection-card h2 {
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: black;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Inter', sans-serif;
+}
+
+.vacationsection-card p {
+    font-size: 1rem;
+    color: #6b7280;
+    padding: 10px;
+    margin: 0;
+}
