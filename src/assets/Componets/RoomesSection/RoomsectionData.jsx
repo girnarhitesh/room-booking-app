@@ -71,29 +71,29 @@ const RoomSectionData = [
             "Perfect for couples, featuring a private jacuzzi, warm lighting, and a romantic luxury experience."
     },
 
-    {
-        id: 7,
-        img: "https://images.unsplash.com/photo-1745920770891-b46fc1799646?w=900&auto=format&fit=crop&q=60",
-        title: "Executive Business Room",
-        price: "₹3,499 / night",
-        size: "360 sq.ft",
-        capacity: "2 Adults",
-        amenities: ["Work Desk", "High-Speed Wi-Fi", "Smart TV", "Coffee Maker"],
-        description:
-            "Designed for professionals, offering a quiet atmosphere with a functional workspace and modern amenities."
-    },
+    // {
+    //     id: 7,
+    //     img: "https://images.unsplash.com/photo-1745920770891-b46fc1799646?w=900&auto=format&fit=crop&q=60",
+    //     title: "Executive Business Room",
+    //     price: "₹3,499 / night",
+    //     size: "360 sq.ft",
+    //     capacity: "2 Adults",
+    //     amenities: ["Work Desk", "High-Speed Wi-Fi", "Smart TV", "Coffee Maker"],
+    //     description:
+    //         "Designed for professionals, offering a quiet atmosphere with a functional workspace and modern amenities."
+    // },
 
-    {
-        id: 8,
-        img: "https://images.unsplash.com/photo-1627257060697-acfbecf5d9a2?w=900&auto=format&fit=crop&q=60",
-        title: "Poolside Room",
-        price: "₹3,799 / night",
-        size: "380 sq.ft",
-        capacity: "2 Adults",
-        amenities: ["King Bed", "Pool Access", "Sun Loungers", "Air Conditioning"],
-        description:
-            "Stay just steps away from the pool with this stylish and refreshing poolside room experience."
-    }
+    // {
+    //     id: 8,
+    //     img: "https://images.unsplash.com/photo-1627257060697-acfbecf5d9a2?w=900&auto=format&fit=crop&q=60",
+    //     title: "Poolside Room",
+    //     price: "₹3,799 / night",
+    //     size: "380 sq.ft",
+    //     capacity: "2 Adults",
+    //     amenities: ["King Bed", "Pool Access", "Sun Loungers", "Air Conditioning"],
+    //     description:
+    //         "Stay just steps away from the pool with this stylish and refreshing poolside room experience."
+    // }
 ];
 
 export default RoomSectionData;

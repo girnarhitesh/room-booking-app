@@ -6,6 +6,8 @@ import './App.css'
 import RoomSection from './assets/Componets/RoomesSection/RoomSection.jsx'
 import RoomDetails from './assets/Componets/RoomDetalis/RoomDetalis.jsx'
 import Contactpage from './assets/Componets/Contactpage/Contactpage.jsx'
+import FooterSection from './assets/Componets/RoomDetalis/FooterSection/FooterSection.jsx'
+
 
 
 function App() {
@@ -15,10 +17,11 @@ function App() {
         <Navigation />
         <Routes>
           <Route path="/" element={<Hero />} />
-          <Route path="/Rooms" element={<RoomSection />} />
+          <Route path="/rooms" element={<RoomSection />} />
           <Route path="/room/:id" element={<RoomDetails />} />
           <Route path='/contact' element={<Contactpage />} />
         </Routes>
+        <FooterSection />
       </BrowserRouter>
     </>
   )

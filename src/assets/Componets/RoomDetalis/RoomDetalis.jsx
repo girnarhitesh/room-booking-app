@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import RoomSectionData from "../RoomesSection/RoomsectionData";
 import "./RoomDetails.css";
 import { Row, Col } from "antd";
-
+import axios from "axios"; // ✅ Axios import
 
 function RoomDetails() {
 
@@ -15,11 +15,25 @@ function RoomDetails() {
         return <h1 style={{ textAlign: "center", marginTop: "50px" }}>Room Not Found</h1>;
     }
 
+    // ✅ Booking function
+    const confirmBooking = (room) => {
+        axios.post("http://localhost:5000/api/bookings", {
+            roomId: room.id,
+            roomName: room.title,
+            price: room.price,
+            userName: "Guest User",      // later dynamic form add kar sakte ho
+            userEmail: "guest@gmail.com", // later dynamic form add kar sakte ho
+            date: new Date().toLocaleDateString()
+        })
+        .then(() => alert("✅ Booking Confirmed!"))
+        .catch(() => alert("❌ Error in booking"));
+    };
+
     return (
         <>
-            <div className="Backgroundcolor-section">
+            {/* <div className="Sectionpadding"> */}
+                <div className="Backgroundcolor-section">
 
-                <div className="Sectionpadding">
                     <div className="details-wrapper">
 
                         <Row gutter={[40, 20]} align="middle">
@@ -48,14 +62,20 @@ function RoomDetails() {
 
                                     <p className="description">{room.description}</p>
 
-                                    <button className="details-btn">Confirm Booking</button>
+                                    {/* ✅ Confirm Booking Button */}
+                                    <button 
+                                        className="details-btn" 
+                                        onClick={() => confirmBooking(room)}
+                                    >
+                                        Confirm Booking
+                                    </button>
 
                                 </div>
                             </Col>
                         </Row>
                     </div>
                 </div>
-            </div>
+            {/* </div>m */}
         </>
     );
 }

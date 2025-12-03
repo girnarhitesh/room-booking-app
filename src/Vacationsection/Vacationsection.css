@@ -1,37 +1,22 @@
-.Sectionpadding {
-    padding: 80px 0;
-    /* Top aur bottom padding */
-    background-color: #f8f8f8;
-    /* Halka background color */
-}
-
-.VacationsectionContainer {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-    /* Horizontal padding chote screens ke liye */
-}
-
-
+@import url('https://fonts.googleapis.com/css2?family=Ancizar+Serif:ital,wght@0,300..900;1,300..900&family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Lora:ital,wght@0,400..700;1,400..700&family=Oswald:wght@200..700&family=Quicksand:wght@300..700&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Space+Grotesk&family=Varela+Round&display=swap');
 .vacation-title-row {
     margin-bottom: 40px;
     text-align: center;
 }
 
 .vacation-heading {
-    font-family: 'Inter', sans-serif;
+    font-family: "Lora", serif;
     font-size: 2.5rem;
-    /* Bada font size */
     font-weight: 800;
-    /* Extra bold */
     color: #1f2937;
-    /* Gehra text color */
     line-height: 1.2;
     margin: 0 auto 10px;
-    max-width: 600px;
-    /* Heading ki width ko seemit karna */
+    max-width: 500px;
 }
-
+.VacationsectionContainer{
+    background-color: #F6F4EE;
+    padding: 5rem 4rem;
+}
 
 
 .vacation-cards-row {
@@ -82,4 +67,6 @@
     color: #6b7280;
     padding: 10px;
     margin: 0;
+    letter-spacing: 0.5px;
+ font-family: "IBM Plex Sans", sans-serif;
 }

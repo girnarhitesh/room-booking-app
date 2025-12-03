@@ -4,24 +4,28 @@ import './Navigation.css';
 
 function Navigation() {
 
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false);   // ✅ only two values
+
+  // ✅ function to close menu
+  const closeMenu = () => setOpen(false);
 
   return (
     <header className="navbar">
       <div className="nav-container">
 
-        <Link to="/" className="brand">
+        <Link to="/" className="brand" onClick={closeMenu}>
           <img src="public/logo.img/img1.png" className="brand-logo" alt="Asatha Logo" />
-          <div className="brand-text">
-            {/* Logo Text (optional) */}
-          </div>
         </Link>
 
         <div className="nav-actions">
 
-          <Link to="/check-availability" className="btn btn-availability desktop-only">
+          {/* <Link 
+            to="/check-availability" 
+            className="btn btn-availability desktop-only"
+            onClick={closeMenu}
+          >
             Check Availability
-          </Link>
+          </Link> */}
 
           <button
             className="btn btn-menu-toggle"
@@ -39,13 +43,15 @@ function Navigation() {
 
         <nav className={`nav-menu-dropdown ${open ? 'open' : ''}`}>
 
-          <Link to="/">Home</Link>
-          <Link to="/rooms">Rooms</Link>
-          {/* <Link to="/amenities">Amenities</Link> */}
-          <Link to="/pricing">Pricing</Link>
-          <Link to="/contact">Contact</Link>
+          <Link to="/" onClick={closeMenu}>Home</Link>
+          <Link to="/rooms" onClick={closeMenu}>Rooms</Link>
+          <Link to="/contact" onClick={closeMenu}>Contact</Link>
 
-          <Link to="/check-availability" className="btn btn-availability mobile-only-in-menu">
+          <Link 
+            to="/check-availability" 
+            className="btn btn-availability mobile-only-in-menu"
+            onClick={closeMenu}
+          >
             Check Availability
           </Link>
 

@@ -6,6 +6,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import './Hero.css';
 import About from '../Aboutsection/About';
+import { Link } from 'react-router-dom';
 
 function Hero() {
 
@@ -37,10 +38,12 @@ function Hero() {
               <div className="text-box">
                 <h1>Luxury Rooms & <span style={{ fontStyle: "italic" }}>Suites</span></h1>
                 <p className="subtitle">Enjoy a peaceful and elegant stay with beautifully designed rooms crafted for your comfort.</p>
-                <button className="btn-book">
-                  Book Now
-                  <span className="btn-icon"><HiOutlineArrowNarrowRight /></span>
-                </button>
+                <Link to='/rooms'>
+                  <button className="btn-book">
+                    Book Now
+                    <span className="btn-icon"><HiOutlineArrowNarrowRight /></span>
+                  </button>
+                </Link>
               </div>
             </div>
           </SwiperSlide>
@@ -54,10 +57,12 @@ function Hero() {
               <div className="text-box">
                 <h1>Feel the <span style={{ fontStyle: "italic" }}>Relaxation</span></h1>
                 <p className="subtitle">Escape the busy world and unwind in a calm, refreshing environment designed for pure relaxation.</p>
-                <button className="btn-book">
-                  Book Now
-                  <span className="btn-icon"><HiOutlineArrowNarrowRight /></span>
-                </button>
+                <Link to='/rooms'>
+                  <button className="btn-book">
+                    Book Now
+                    <span className="btn-icon"><HiOutlineArrowNarrowRight /></span>
+                  </button>
+                </Link>
               </div>
             </div>
           </SwiperSlide>
@@ -71,18 +76,20 @@ function Hero() {
               <div className="text-box">
                 <h1>Peaceful <span style={{ fontStyle: "italic" }}>Environment</span></h1>
                 <p className="subtitle"> Surrounded by nature, enjoy a serene atmosphere that refreshes your mind and soothes your soul.</p>
-                <button className="btn-book">
-                  Book Now
-                  <span className="btn-icon"><HiOutlineArrowNarrowRight /></span>
-                </button>
+                <Link to='/rooms'>
+                  <button className="btn-book">
+                    Book Now
+                    <span className="btn-icon"><HiOutlineArrowNarrowRight /></span>
+                  </button>
+                </Link>
               </div>
             </div>
           </SwiperSlide>
         </Swiper>
       </div>
-      <About/>
+      <About />
     </>
   );
-} 
+}
 
 export default Hero;
