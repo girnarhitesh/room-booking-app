@@ -18,7 +18,6 @@
     padding: 5rem 4rem;
 }
 
-
 .vacation-cards-row {
     margin-top: 20px;
 }
@@ -69,4 +68,13 @@
     margin: 0;
     letter-spacing: 0.5px;
  font-family: "IBM Plex Sans", sans-serif;
+}
+
+@media (max-width: 768px) {
+  .vacation-heading{
+    font-size: 2rem;
+  }
+  .VacationsectionContainer{
+    padding: 2rem 2rem;
+  }
 }

@@ -44,6 +44,7 @@ function Navigation() {
         <nav className={`nav-menu-dropdown ${open ? 'open' : ''}`}>
 
           <Link to="/" onClick={closeMenu}>Home</Link>
+          <Link to="/about" onClick={closeMenu}>About us</Link>
           <Link to="/rooms" onClick={closeMenu}>Rooms</Link>
           <Link to="/contact" onClick={closeMenu}>Contact</Link>
 

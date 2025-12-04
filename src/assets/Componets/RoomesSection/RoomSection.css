@@ -102,3 +102,11 @@
 .RoomSection-btn:hover {
     background-color: #6f451f;
 }
+
+
+@media (max-width: 900px){
+    .RoomSection-grid {
+   display: flex;
+   flex-direction: column;
+    }
+}

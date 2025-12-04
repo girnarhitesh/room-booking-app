@@ -64,31 +64,13 @@
 }
 
 .Backgroundcolor-section {
-    position: relative;
-    width: 100%;
-    min-height: 100vh;
-    /* overflow: hidden; */
-}
-
-.Backgroundcolor-section::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('https://img.freepik.com/free-vector/white-background-with-hexagonal-line-pattern-design_1017-28442.jpg?t=st=1764752361~exp=1764755961~hmac=a247e3df3ff0404c43e231b832edb46a203cc06b95d5ef05dc50a0d9abdbc1f8&w=1480');
+     background-image: url('https://img.freepik.com/free-vector/white-background-with-hexagonal-line-pattern-design_1017-28442.jpg?t=st=1764752361~exp=1764755961~hmac=a247e3df3ff0404c43e231b832edb46a203cc06b95d5ef05dc50a0d9abdbc1f8&w=1480');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    filter: blur(3px);
-    transform: scale(1.05);
-    z-index: -1;
-}
+    width: 100%;
+    min-height: 100vh;
 
-.Backgroundcolor-section>* {
-    position: relative;
-    z-index: 1;
 }
 
 
@@ -103,5 +85,16 @@
 
     .details-wrapper {
         padding: 10px;
+    }
+}
+
+@media (max-width: 900px) {
+    .details-wrapper{
+        padding: 2rem ;
+    }
+    .details-img{
+width: 100%;
+height: 100%;
+object-fit: cover;
     }
 }

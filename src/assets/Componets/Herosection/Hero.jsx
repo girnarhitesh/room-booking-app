@@ -24,6 +24,7 @@ function Hero() {
           pagination={pagination}
           modules={[Pagination, Autoplay]}
           className="mySwiper"
+          speed={2000}
           autoplay={{
             delay: 3000,
             disableOnInteraction: false
