@@ -8,7 +8,6 @@
     "backend": "nodemon server.js",
     "start": "concurrently \"npm run backend\" \"npm run frontend\"",
     
-    // FIX: Vercel/Linux environments के लिए environment variable जोड़ें
     "build": "VITE_CJS_IGNORE_EXTERNAL=true vite build", 
     
     "lint": "eslint .",
