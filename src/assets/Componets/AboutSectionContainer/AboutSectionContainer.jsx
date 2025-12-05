@@ -1,6 +1,6 @@
 import React from 'react';
 import './AboutSectionContainer.css';
-import SwiperSection from '../../../SwiperSection/SwiperSection';
+import SwiperSection from '../SwiperSection/SwiperSection';
 
 const AboutSectionContainer = () => {
     return (

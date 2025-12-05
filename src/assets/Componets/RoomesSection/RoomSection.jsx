@@ -2,7 +2,7 @@ import React from 'react';
 import './RoomSection.css';
 import RoomSectionData from './RoomsectionData';
 import { Link } from 'react-router-dom';
-import Vacationsection from '../../../Vacationsection/Vacationsection';
+import Vacationsection from '../Vacationsection/Vacationsection';
 import { CiHeart } from "react-icons/ci";
 
 function RoomSection() {

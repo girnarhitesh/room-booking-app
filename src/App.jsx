@@ -7,7 +7,7 @@ import RoomSection from './assets/Componets/RoomesSection/RoomSection.jsx'
 import RoomDetails from './assets/Componets/RoomDetalis/RoomDetalis.jsx'
 import Contactpage from './assets/Componets/Contactpage/Contactpage.jsx'
 import AboutSectionContainer from './assets/Componets/AboutSectionContainer/AboutSectionContainer.jsx'
-import FooterSection from './FooterSection/FooterSection.jsx'
+import FooterSection from './assets/Componets/FooterSection/FooterSection.jsx'
 
 
 

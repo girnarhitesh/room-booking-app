@@ -48,13 +48,13 @@ function Navigation() {
           <Link to="/rooms" onClick={closeMenu}>Rooms</Link>
           <Link to="/contact" onClick={closeMenu}>Contact</Link>
 
-          <Link 
+          {/* <Link 
             to="/check-availability" 
             className="btn btn-availability mobile-only-in-menu"
             onClick={closeMenu}
           >
             Check Availability
-          </Link>
+          </Link> */}
 
         </nav>
       </div>
