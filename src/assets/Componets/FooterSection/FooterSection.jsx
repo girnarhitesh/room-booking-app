@@ -1,7 +1,9 @@
 import React from 'react';
 import { Row, Col } from 'antd';
-import { FacebookOutlined, TwitterOutlined, InstagramOutlined, LinkedinOutlined, MailOutlined, PhoneOutlined, EnvironmentOutlined } from '@ant-design/icons';
+import {  TwitterOutlined, InstagramOutlined, MailOutlined, PhoneOutlined, EnvironmentOutlined } from '@ant-design/icons';
 import './FooterSection.css';
+import { FaFacebookSquare } from "react-icons/fa";
+import { IoLogoLinkedin } from "react-icons/io5";
 
 function FooterSection() {
     const currentYear = new Date().getFullYear();
@@ -20,7 +22,7 @@ function FooterSection() {
                             </p>
                             <div className="footer-social">
                                 <a href="#" className="social-icon" aria-label="Facebook">
-                                    <FacebookOutlined />
+                                    <FaFacebookSquare />
                                 </a>
                                 <a href="#" className="social-icon" aria-label="Twitter">
                                     <TwitterOutlined />
@@ -29,7 +31,7 @@ function FooterSection() {
                                     <InstagramOutlined />
                                 </a>
                                 <a href="#" className="social-icon" aria-label="LinkedIn">
-                                    <LinkedinOutlined />
+                                    <IoLogoLinkedin />
                                 </a>
                             </div>
                         </div>
