@@ -1,6 +1,5 @@
 import express from "express";
 import Room from "../models/Room.js";
-import mongoose from "mongoose";
 
 const router = express.Router();
 
@@ -20,8 +19,8 @@ let mockRooms = [
     view: "City View",
     smokingAllowed: false,
     petFriendly: false,
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString()
+    createdAt: new Date(),
+    updatedAt: new Date()
   },
   {
     _id: "2",
@@ -37,8 +36,8 @@ let mockRooms = [
     view: "Garden View",
     smokingAllowed: false,
     petFriendly: true,
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString()
+    createdAt: new Date(),
+    updatedAt: new Date()
   },
   {
     _id: "3",
@@ -54,165 +53,209 @@ let mockRooms = [
     view: "Ocean View",
     smokingAllowed: false,
     petFriendly: false,
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString()
+    createdAt: new Date(),
+    updatedAt: new Date()
   }
 ];
 
-// Check if MongoDB is connected
-const isMongoConnected = () => {
-  return mongoose.connection.readyState === 1;
+// Flag to check if MongoDB is connected
+let isMongoConnected = false;
+
+// Test MongoDB connection
+setTimeout(async () => {
+  try {
+    // This is just to check if the model is properly loaded
+    if (Room.db.readyState === 1) {
+      isMongoConnected = true;
+      console.log("MongoDB is connected for Room operations");
+    }
+  } catch (err) {
+    console.log("Using mock data for Room operations");
+  }
+}, 1000);
+
+// Helper function to handle database operations
+const handleDBOperation = async (mongoOp, mockOp) => {
+  if (isMongoConnected) {
+    try {
+      return await mongoOp();
+    } catch (err) {
+      // Fallback to mock data if MongoDB operation fails
+      console.log("Falling back to mock data due to MongoDB error:", err.message);
+      return mockOp();
+    }
+  } else {
+    return mockOp();
+  }
 };
 
 // GET all rooms
 router.get("/", async (req, res) => {
   try {
-    if (isMongoConnected()) {
-      const rooms = await Room.find();
-      res.json(rooms);
-    } else {
-      res.json(mockRooms);
-    }
+    const result = await handleDBOperation(
+      () => Room.find(),
+      () => Promise.resolve(mockRooms)
+    );
+    res.json(result);
   } catch (err) {
-    console.error("Error fetching rooms:", err.message);
-    res.status(500).json({ message: "Error fetching rooms", error: err.message });
+    res.status(500).json({ message: err.message });
   }
 });
 
 // GET a specific room by ID
 router.get("/:id", async (req, res) => {
   try {
-    if (isMongoConnected()) {
-      const room = await Room.findById(req.params.id);
-      if (!room) {
-        return res.status(404).json({ message: "Room not found" });
+    const result = await handleDBOperation(
+      () => Room.findById(req.params.id),
+      () => {
+        const room = mockRooms.find(r => r._id === req.params.id);
+        if (!room) {
+          throw new Error("Room not found");
+        }
+        return Promise.resolve(room);
       }
-      res.json(room);
-    } else {
-      const room = mockRooms.find(r => r._id === req.params.id);
-      if (!room) {
-        return res.status(404).json({ message: "Room not found" });
-      }
-      res.json(room);
+    );
+    
+    if (!result) {
+      return res.status(404).json({ message: "Room not found" });
     }
+    res.json(result);
   } catch (err) {
-    console.error("Error fetching room:", err.message);
-    res.status(500).json({ message: "Error fetching room", error: err.message });
+    if (err.message === "Room not found") {
+      return res.status(404).json({ message: "Room not found" });
+    }
+    res.status(500).json({ message: err.message });
   }
 });
 
 // POST a new room
 router.post("/", async (req, res) => {
   try {
-    if (isMongoConnected()) {
-      const room = new Room(req.body);
-      const savedRoom = await room.save();
-      res.status(201).json(savedRoom);
-    } else {
-      const newRoom = {
-        _id: String(mockRooms.length + 1),
-        ...req.body,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString()
-      };
-      mockRooms.push(newRoom);
-      res.status(201).json(newRoom);
-    }
+    const result = await handleDBOperation(
+      () => {
+        const room = new Room(req.body);
+        return room.save();
+      },
+      () => {
+        const newRoom = {
+          _id: String(mockRooms.length + 1),
+          ...req.body,
+          createdAt: new Date(),
+          updatedAt: new Date()
+        };
+        mockRooms.push(newRoom);
+        return Promise.resolve(newRoom);
+      }
+    );
+    res.status(201).json(result);
   } catch (err) {
-    console.error("Error creating room:", err.message);
-    res.status(400).json({ message: "Error creating room", error: err.message });
+    res.status(400).json({ message: err.message });
   }
 });
 
 // PUT (update) a room by ID
 router.put("/:id", async (req, res) => {
   try {
-    if (isMongoConnected()) {
-      const room = await Room.findByIdAndUpdate(req.params.id, req.body, {
+    const result = await handleDBOperation(
+      () => Room.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
         runValidators: true
-      });
-      if (!room) {
-        return res.status(404).json({ message: "Room not found" });
+      }),
+      () => {
+        const roomIndex = mockRooms.findIndex(r => r._id === req.params.id);
+        if (roomIndex === -1) {
+          throw new Error("Room not found");
+        }
+        
+        mockRooms[roomIndex] = {
+          ...mockRooms[roomIndex],
+          ...req.body,
+          updatedAt: new Date()
+        };
+        
+        return Promise.resolve(mockRooms[roomIndex]);
       }
-      res.json(room);
-    } else {
-      const roomIndex = mockRooms.findIndex(r => r._id === req.params.id);
-      if (roomIndex === -1) {
-        return res.status(404).json({ message: "Room not found" });
-      }
-      
-      mockRooms[roomIndex] = {
-        ...mockRooms[roomIndex],
-        ...req.body,
-        updatedAt: new Date().toISOString()
-      };
-      
-      res.json(mockRooms[roomIndex]);
+    );
+    
+    if (!result) {
+      return res.status(404).json({ message: "Room not found" });
     }
+    res.json(result);
   } catch (err) {
-    console.error("Error updating room:", err.message);
-    res.status(400).json({ message: "Error updating room", error: err.message });
+    if (err.message === "Room not found") {
+      return res.status(404).json({ message: "Room not found" });
+    }
+    res.status(400).json({ message: err.message });
   }
 });
 
 // DELETE a room by ID
 router.delete("/:id", async (req, res) => {
   try {
-    if (isMongoConnected()) {
-      const room = await Room.findByIdAndDelete(req.params.id);
-      if (!room) {
-        return res.status(404).json({ message: "Room not found" });
+    const result = await handleDBOperation(
+      () => Room.findByIdAndDelete(req.params.id),
+      () => {
+        const roomIndex = mockRooms.findIndex(r => r._id === req.params.id);
+        if (roomIndex === -1) {
+          throw new Error("Room not found");
+        }
+        
+        const deletedRoom = mockRooms.splice(roomIndex, 1);
+        return Promise.resolve({ message: "Room deleted successfully", room: deletedRoom[0] });
       }
-      res.json({ message: "Room deleted successfully" });
+    );
+    
+    if (!result) {
+      return res.status(404).json({ message: "Room not found" });
+    }
+    
+    // If MongoDB operation succeeded but didn't return a result, it means it was already deleted
+    if (result.message) {
+      res.json(result);
     } else {
-      const roomIndex = mockRooms.findIndex(r => r._id === req.params.id);
-      if (roomIndex === -1) {
-        return res.status(404).json({ message: "Room not found" });
-      }
-      
-      mockRooms.splice(roomIndex, 1);
       res.json({ message: "Room deleted successfully" });
     }
   } catch (err) {
-    console.error("Error deleting room:", err.message);
-    res.status(500).json({ message: "Error deleting room", error: err.message });
+    if (err.message === "Room not found") {
+      return res.status(404).json({ message: "Room not found" });
+    }
+    res.status(500).json({ message: err.message });
   }
 });
 
 // GET rooms by type
 router.get("/type/:type", async (req, res) => {
   try {
-    if (isMongoConnected()) {
-      const rooms = await Room.find({ type: req.params.type });
-      res.json(rooms);
-    } else {
-      const filteredRooms = mockRooms.filter(r => 
-        r.type.toLowerCase() === req.params.type.toLowerCase()
-      );
-      res.json(filteredRooms);
-    }
+    const result = await handleDBOperation(
+      () => Room.find({ type: req.params.type }),
+      () => {
+        const filteredRooms = mockRooms.filter(r => 
+          r.type.toLowerCase() === req.params.type.toLowerCase()
+        );
+        return Promise.resolve(filteredRooms);
+      }
+    );
+    res.json(result);
   } catch (err) {
-    console.error("Error fetching rooms by type:", err.message);
-    res.status(500).json({ message: "Error fetching rooms by type", error: err.message });
+    res.status(500).json({ message: err.message });
   }
 });
 
 // GET available rooms
 router.get("/status/:status", async (req, res) => {
   try {
-    if (isMongoConnected()) {
-      const rooms = await Room.find({ status: req.params.status });
-      res.json(rooms);
-    } else {
-      const filteredRooms = mockRooms.filter(r => 
-        r.status.toLowerCase() === req.params.status.toLowerCase()
-      );
-      res.json(filteredRooms);
-    }
+    const result = await handleDBOperation(
+      () => Room.find({ status: req.params.status }),
+      () => {
+        const filteredRooms = mockRooms.filter(r => 
+          r.status.toLowerCase() === req.params.status.toLowerCase()
+        );
+        return Promise.resolve(filteredRooms);
+      }
+    );
+    res.json(result);
   } catch (err) {
-    console.error("Error fetching rooms by status:", err.message);
-    res.status(500).json({ message: "Error fetching rooms by status", error: err.message });
+    res.status(500).json({ message: err.message });
   }
 });
 
