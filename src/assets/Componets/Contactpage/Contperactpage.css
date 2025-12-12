@@ -25,8 +25,8 @@
 
 .contact-header h1 {
   font-size: clamp(26px, 4vw, 42px);
-  margin-bottom: 10px;
-  margin-top: 10px;
+  margin-bottom: 20px;
+  margin-top: 20px;
   color: #1f2937;
   text-align: justify;
 }

@@ -1,65 +1,12 @@
 import express from "express";
+import Room from "../models/Room.js";
 
 const router = express.Router();
 
-// Mock data for testing
-let rooms = [
-  {
-    _id: "1",
-    roomNumber: "101",
-    type: "Single",
-    price: 100,
-    status: "available",
-    capacity: 1,
-    amenities: ["WiFi", "TV", "AC"],
-    description: "Cozy single room with all basic amenities",
-    floor: 1,
-    bedType: "Single Bed",
-    view: "City View",
-    smokingAllowed: false,
-    petFriendly: false,
-    createdAt: new Date(),
-    updatedAt: new Date()
-  },
-  {
-    _id: "2",
-    roomNumber: "102",
-    type: "Double",
-    price: 150,
-    status: "available",
-    capacity: 2,
-    amenities: ["WiFi", "TV", "AC", "Mini Bar"],
-    description: "Comfortable double room for couples",
-    floor: 1,
-    bedType: "Queen Bed",
-    view: "Garden View",
-    smokingAllowed: false,
-    petFriendly: true,
-    createdAt: new Date(),
-    updatedAt: new Date()
-  },
-  {
-    _id: "3",
-    roomNumber: "201",
-    type: "Suite",
-    price: 300,
-    status: "available",
-    capacity: 4,
-    amenities: ["WiFi", "TV", "AC", "Mini Bar", "Jacuzzi", "Balcony"],
-    description: "Luxurious suite with premium amenities",
-    floor: 2,
-    bedType: "King Bed",
-    view: "Ocean View",
-    smokingAllowed: false,
-    petFriendly: false,
-    createdAt: new Date(),
-    updatedAt: new Date()
-  }
-];
-
 // GET all rooms
-router.get("/", (req, res) => {
+router.get("/", async (req, res) => {
   try {
+    const rooms = await Room.find();
     res.json(rooms);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -67,9 +14,9 @@ router.get("/", (req, res) => {
 });
 
 // GET a specific room by ID
-router.get("/:id", (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
-    const room = rooms.find(r => r._id === req.params.id);
+    const room = await Room.findById(req.params.id);
     if (!room) {
       return res.status(404).json({ message: "Room not found" });
     }
@@ -80,71 +27,60 @@ router.get("/:id", (req, res) => {
 });
 
 // POST a new room
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
+  const room = new Room(req.body);
   try {
-    const newRoom = {
-      _id: String(rooms.length + 1),
-      ...req.body,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    };
-    rooms.push(newRoom);
-    res.status(201).json(newRoom);
+    const savedRoom = await room.save();
+    res.status(201).json(savedRoom);
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
 });
 
 // PUT (update) a room by ID
-router.put("/:id", (req, res) => {
+router.put("/:id", async (req, res) => {
   try {
-    const roomIndex = rooms.findIndex(r => r._id === req.params.id);
-    if (roomIndex === -1) {
+    const room = await Room.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true
+    });
+    if (!room) {
       return res.status(404).json({ message: "Room not found" });
     }
-    
-    rooms[roomIndex] = {
-      ...rooms[roomIndex],
-      ...req.body,
-      updatedAt: new Date()
-    };
-    
-    res.json(rooms[roomIndex]);
+    res.json(room);
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
 });
 
 // DELETE a room by ID
-router.delete("/:id", (req, res) => {
+router.delete("/:id", async (req, res) => {
   try {
-    const roomIndex = rooms.findIndex(r => r._id === req.params.id);
-    if (roomIndex === -1) {
+    const room = await Room.findByIdAndDelete(req.params.id);
+    if (!room) {
       return res.status(404).json({ message: "Room not found" });
     }
-    
-    const deletedRoom = rooms.splice(roomIndex, 1);
-    res.json({ message: "Room deleted successfully", room: deletedRoom[0] });
+    res.json({ message: "Room deleted successfully" });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 });
 
 // GET rooms by type
-router.get("/type/:type", (req, res) => {
+router.get("/type/:type", async (req, res) => {
   try {
-    const filteredRooms = rooms.filter(r => r.type.toLowerCase() === req.params.type.toLowerCase());
-    res.json(filteredRooms);
+    const rooms = await Room.find({ type: req.params.type });
+    res.json(rooms);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 });
 
 // GET available rooms
-router.get("/status/:status", (req, res) => {
+router.get("/status/:status", async (req, res) => {
   try {
-    const filteredRooms = rooms.filter(r => r.status.toLowerCase() === req.params.status.toLowerCase());
-    res.json(filteredRooms);
+    const rooms = await Room.find({ status: req.params.status });
+    res.json(rooms);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

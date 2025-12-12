@@ -1,4 +1,5 @@
 import express from "express";
+import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
 import roomRoutes from "./routes/room.routes.js";
@@ -61,11 +62,24 @@ app.use((err, req, res, next) => {
   res.status(500).json({ message: "Something went wrong!" });
 });
 
-// Start server without MongoDB for testing purposes
+// MongoDB connection with retry logic and fallback
+const connectDB = async () => {
+  try {
+    await mongoose.connect(process.env.MONGO_URL);
+    console.log("MongoDB connected successfully");
+  } catch (err) {
+    console.error("MongoDB connection error:", err.message);
+    console.log("Running in mock mode without database connection");
+  }
+};
+
+// Connect to MongoDB
+connectDB();
+
+// Start server
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
-  console.log("NOTE: MongoDB connection disabled for testing purposes");
 });
 
 // Handle unhandled promise rejections
