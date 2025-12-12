@@ -27,7 +27,8 @@ app.get("/health", (req, res) => {
   res.status(200).json({ 
     status: "OK", 
     timestamp: new Date().toISOString(),
-    uptime: process.uptime()
+    uptime: process.uptime(),
+    mongodb: mongoose.connection.readyState === 1 ? "connected" : "disconnected"
   });
 });
 
@@ -47,7 +48,8 @@ app.get("/", (req, res) => {
       <li>GET /api/rooms/status/:status - Get rooms by status</li>
       <li>GET /health - Health check</li>
     </ul>
-    <p>Use Postman or similar tools to test these endpoints.</p>
+    <p>Use Postman Desktop App (not web version) to test these endpoints.</p>
+    <p>MongoDB Status: ${mongoose.connection.readyState === 1 ? 'Connected' : 'Disconnected'}</p>
   `);
 });
 
@@ -59,13 +61,17 @@ app.use((req, res) => {
 // Global error handler
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).json({ message: "Something went wrong!" });
+  res.status(500).json({ message: "Something went wrong!", error: err.message });
 });
 
-// MongoDB connection with retry logic and fallback
+// MongoDB connection with retry logic and better error handling
 const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URL);
+    console.log("Attempting to connect to MongoDB...");
+    await mongoose.connect(process.env.MONGO_URL, {
+      serverSelectionTimeoutMS: 5000, // Timeout after 5s instead of 30s
+      socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
+    });
     console.log("MongoDB connected successfully");
   } catch (err) {
     console.error("MongoDB connection error:", err.message);
@@ -80,9 +86,16 @@ connectDB();
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
+  console.log("Make sure to use Postman Desktop App for local testing");
 });
 
 // Handle unhandled promise rejections
 process.on('unhandledRejection', (err) => {
   console.log('Unhandled Promise Rejection:', err.message);
+});
+
+// Handle SIGTERM gracefully
+process.on('SIGTERM', () => {
+  console.log('SIGTERM received, shutting down gracefully');
+  process.exit(0);
 });

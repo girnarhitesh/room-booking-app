@@ -5,9 +5,6 @@ import Room from "./models/Room.js";
 
 dotenv.config();
 
-// Connect to MongoDB
-mongoose.connect(process.env.MONGO_URL);
-
 const sampleRooms = [
   {
     roomNumber: "101",
@@ -83,6 +80,13 @@ const sampleRooms = [
 
 const insertSampleData = async () => {
   try {
+    // Connect to MongoDB
+    await mongoose.connect(process.env.MONGO_URL, {
+      serverSelectionTimeoutMS: 5000,
+      socketTimeoutMS: 45000,
+    });
+    console.log("MongoDB connected successfully");
+    
     // Clear existing data
     await Room.deleteMany({});
     console.log("Existing data cleared");
@@ -92,10 +96,11 @@ const insertSampleData = async () => {
     console.log("Sample data inserted successfully");
     
     // Disconnect from database
-    mongoose.connection.close();
+    await mongoose.connection.close();
+    console.log("Disconnected from MongoDB");
   } catch (error) {
     console.error("Error inserting sample data:", error);
-    mongoose.connection.close();
+    process.exit(1);
   }
 };
 
