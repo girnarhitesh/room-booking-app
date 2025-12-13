@@ -1,27 +1,74 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const roomSchema = new mongoose.Schema({
-  roomNumber: { type: String, required: true, unique: true },
-  type: { type: String, required: true },
-  price: { type: Number, required: true },
-  status: { type: String, default: "available", enum: ["available", "booked", "maintenance"] },
-  capacity: { type: Number, required: true },
-  amenities: [{ type: String }],
-  description: { type: String },
-  imageUrl: { type: String },
-  floor: { type: Number },
-  bedType: { type: String },
-  view: { type: String },
-  smokingAllowed: { type: Boolean, default: false },
-  petFriendly: { type: Boolean, default: false },
-  createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now }
-}, { timestamps: true });
-
-// Update the updatedAt field before saving
-roomSchema.pre('save', function(next) {
-  this.updatedAt = Date.now();
-  next();
+  roomNumber: {
+    type: String,
+    required: [true, 'Please add a room number'],
+    unique: true,
+    trim: true,
+    maxlength: [10, 'Room number cannot be more than 10 characters']
+  },
+  type: {
+    type: String,
+    required: [true, 'Please add a room type'],
+    enum: ['Single', 'Double', 'Suite', 'Family', 'Deluxe'],
+    trim: true
+  },
+  price: {
+    type: Number,
+    required: [true, 'Please add a price'],
+    min: [0, 'Price cannot be negative']
+  },
+  capacity: {
+    type: Number,
+    required: [true, 'Please add capacity'],
+    min: [1, 'Capacity must be at least 1'],
+    max: [10, 'Capacity cannot be more than 10']
+  },
+  amenities: [{
+    type: String,
+    trim: true
+  }],
+  description: {
+    type: String,
+    required: [true, 'Please add a description'],
+    maxlength: [500, 'Description cannot be more than 500 characters']
+  },
+  images: [{
+    type: String
+  }],
+  isAvailable: {
+    type: Boolean,
+    default: true
+  },
+  floor: {
+    type: Number,
+    required: [true, 'Please add a floor number']
+  },
+  bedType: {
+    type: String,
+    required: [true, 'Please add a bed type'],
+    trim: true
+  },
+  view: {
+    type: String,
+    trim: true
+  },
+  smokingAllowed: {
+    type: Boolean,
+    default: false
+  },
+  petFriendly: {
+    type: Boolean,
+    default: false
+  }
+}, {
+  timestamps: true
 });
 
-export default mongoose.model("Room", roomSchema);
+// Index for better query performance
+roomSchema.index({ roomNumber: 1 });
+roomSchema.index({ type: 1 });
+roomSchema.index({ isAvailable: 1 });
+
+export default mongoose.model('Room', roomSchema);
