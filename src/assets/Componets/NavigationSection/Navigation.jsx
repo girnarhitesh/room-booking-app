@@ -14,7 +14,9 @@ function Navigation() {
       <div className="nav-container">
 
         <Link to="/" className="brand" onClick={closeMenu}>
-          <img src="public/logo.img/img1.png" className="brand-logo" alt="Asatha Logo" />
+          <img src="/logo.img/img1.png" className="brand-logo" alt="Asatha Logo" onError={(e) => {
+            e.target.src = '/logo.img/logo.png';
+          }} />
         </Link>
 
         <div className="nav-actions">
