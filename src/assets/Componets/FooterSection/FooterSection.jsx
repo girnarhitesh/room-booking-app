@@ -15,7 +15,15 @@ function FooterSection() {
                     {/* Company Info */}
                     <Col lg={6} md={12} sm={24} xs={24}>
                         <div className="footer-column">
-                            <h3 className="footer-logo"><img src="public/logo.img/img1.png" alt="" /></h3>
+                            <h3 className="footer-logo">
+                                <img 
+                                    src="/logo.img/img1.png" 
+                                    alt="TravelVista Logo" 
+                                    onError={(e) => {
+                                        e.target.src = '/logo.img/logo.png';
+                                    }}
+                                />
+                            </h3>
                             <p className="footer-description">
                                 Your trusted partner for unforgettable vacation experiences around the world. 
                                 Creating memories that last a lifetime.
